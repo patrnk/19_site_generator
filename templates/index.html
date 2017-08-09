@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Энциклопедия</title>
+  </head>
+  <body>
+    {% for slug, topic in topics.items() %}
+      {{ topic.title }}:
+      {% for article in topic.articles %}
+        {{ article.title }}
+      {% endfor %}
+      {{ "<hr>" if not loop.last }}
+    {% endfor %}
+  </body>
+</html>
