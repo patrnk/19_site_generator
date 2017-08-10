@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 from argparse import ArgumentParser, RawTextHelpFormatter
 
 import markdown
@@ -11,6 +12,7 @@ import file_utils
 ROOT = 'live_website/'
 ARTICLES_FOLDER = 'encyclopedia/'
 TEMPLATES = 'templates/'
+ASSETS_FOLDER = 'assets/'
 SOURCES_ROOT = 'articles/'
 ARTICLE_INFO = 'config.json'
 
@@ -44,6 +46,9 @@ def render_articles(environment, topics):
             file_utils.dump_html_to_file(rendered_article, article_path)
 
 
+def collect_assets():
+    file_utils.force_copy_folder(ASSETS_FOLDER, os.path.join(ROOT, ASSETS_FOLDER))
+
 def make_site():
     topics = file_utils.load_article_info_by_topic(ARTICLE_INFO)
     environment = jinja2.Environment(
@@ -68,8 +73,10 @@ if __name__ == '__main__':
     args = parse_args(sys.argv[1:])
     if args.action == 'reset':
         file_utils.delete_contents_of_folder(ROOT)
+        collect_assets()
         make_site()
     if args.action == 'runserver':
         server = Server()
         server.watch(TEMPLATES, make_site)
+        server.watch(ASSETS_FOLDER, collect_assets)
         server.serve(root=ROOT)

@@ -42,3 +42,9 @@ def generate_article_filename(article_source):
 def delete_contents_of_folder(path):
     shutil.rmtree(path)
     os.makedirs(path)
+
+
+def force_copy_folder(source, destination):
+    if os.path.exists(destination):
+        shutil.rmtree(destination)
+    shutil.copytree(source, destination)
