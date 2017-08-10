@@ -14,7 +14,7 @@
         <ul class="list-unstyled">
           {% for article in topic.articles %}
             <li>
-                <a href="{{ article.path }}">{{ article.title|escape }}</a>
+                <a href="{{ article.path|escape }}">{{ article.title|escape }}</a>
             </li>
           {% endfor %}
         </ul>
