@@ -32,7 +32,7 @@ def render_articles(environment, topics):
             md_article = file_utils.read_text_from_file(
                 os.path.join(ARTICLE_SOURCES, article['source'])
             )
-            html_article = markdown.markdown(md_article)
+            html_article = markdown.markdown(md_article, extensions=['codehilite'])
             context = {
                 'title': article['title'],
                 'text': html_article,
