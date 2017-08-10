@@ -2,12 +2,17 @@
 {% block title %}
   {{ title }}
 {% endblock %}
+{% block stylesheets %}
+  <link href="/assets/css/article.css" rel="stylesheet">
+{% endblock %}
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
+      <div class="col-sm-8 col-sm-offset-2" class="corner-note-parent">
+          <p class="corner-note text-muted">Раздел: {{ topic }}. <a href="/index.html">На главную</a></p>
         <h2 class="page-header">{{ title }}</h2>
         {{ text }}
+        <p class="text-muted"><a href="/index.html">На главную</a></p>
       </div>
     </div>
   </div>

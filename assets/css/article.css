@@ -1,0 +1,8 @@
+.corner-note-parent {
+    position: relative;
+}
+.corner-note {
+    position: absolute;
+    right: 30px;
+    top: 0px;
+}
