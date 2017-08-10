@@ -1,0 +1,7 @@
+header {
+    background-color: blue;
+    color: white;
+}
+header .jumbotron {
+    background-color: transparent;
+}
