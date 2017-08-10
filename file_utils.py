@@ -39,6 +39,15 @@ def generate_article_filename(article_source):
     return '.'.join((article_slug, 'html'))
 
 
+def add_info_about_paths(topics, articles_folder):
+    for slug, topic in topics.items():
+        topic['path'] = os.path.join(articles_folder, slug)
+        for article in topic['articles']:
+            article_name = generate_article_filename(article['source'])
+            article['path'] = os.path.join(topic['path'], article_name)
+    return topics
+
+
 def delete_contents_of_folder(path):
     shutil.rmtree(path)
     os.makedirs(path)

@@ -27,8 +27,7 @@ def render_index(environment, topics):
 
 def render_articles(environment, topics):
     for slug, topic in topics.items():
-        topic_path = os.path.join(ROOT, ARTICLES_SUBDIRECTORY, slug)
-        os.makedirs(topic_path, exist_ok=True)
+        os.makedirs(os.path.join(ROOT, topic['path']), exist_ok=True)
         for article in topic['articles']:
             md_article = file_utils.read_text_from_file(
                 os.path.join(ARTICLE_SOURCES, article['source'])
@@ -40,9 +39,7 @@ def render_articles(environment, topics):
                 'topic': topic['title'],
             }
             rendered_article = environment.get_template('article.html').render(context)
-            article_name = file_utils.generate_article_filename(article['source'])
-            article_path = os.path.join(topic_path, article_name)
-            file_utils.dump_html_to_file(rendered_article, article_path)
+            file_utils.dump_html_to_file(rendered_article, os.path.join(ROOT, article['path']))
 
 
 def collect_assets():
@@ -50,6 +47,7 @@ def collect_assets():
 
 def make_site():
     topics = file_utils.load_article_info_by_topic(ARTICLE_INFO)
+    topics = file_utils.add_info_about_paths(topics, ARTICLES_SUBDIRECTORY)
     environment = jinja2.Environment(
         loader=jinja2.FileSystemLoader(TEMPLATES)
     )
