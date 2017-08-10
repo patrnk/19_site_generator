@@ -9,6 +9,7 @@ import file_utils
 ROOT = 'live_website/'
 TEMPLATES = 'templates/'
 SOURCES_ROOT = 'articles/'
+ARTICLE_INFO = 'config.json'
 
 
 def render_index(environment, topics):
@@ -41,7 +42,7 @@ def render_articles(environment, topics):
 
 
 def make_site():
-    topics = file_utils.load_article_info_by_topic('config.json')
+    topics = file_utils.load_article_info_by_topic(ARTICLE_INFO)
     environment = jinja2.Environment(
         loader=jinja2.FileSystemLoader(TEMPLATES)
     )
