@@ -3,18 +3,22 @@
   {{ title }}
 {% endblock %}
 {% block stylesheets %}
-  <link href="/assets/css/article.css" rel="stylesheet">
-  <link href="/assets/codehilite.css" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon-96.png">
+  <link href="../../assets/css/base.css" rel="stylesheet">
+  <link href="../../assets/css/article.css" rel="stylesheet">
+  <link href="../../assets/codehilite.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
   <div class="container">
     <div class="row">
       <article>
         <div class="col-sm-8 col-sm-offset-2 corner-note-parent">
-            <p class="corner-note text-muted">Раздел: {{ topic }}. <a href="/index.html">На главную</a></p>
+            <p class="corner-note text-muted">Раздел: {{ topic }}. <a href="../../index.html">На главную</a></p>
           <h2 class="page-header">{{ title }}</h2>
           {{ text }}
-          <p class="text-muted"><a href="/index.html">На главную</a></p>
+          <p class="text-muted"><a href="../../index.html">На главную</a></p>
         </div>
       </article>
     </div>

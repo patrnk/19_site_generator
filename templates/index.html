@@ -3,7 +3,8 @@
   Главная
 {% endblock %}
 {% block stylesheets %}
-  <link href="/assets/css/index.css" rel="stylesheet">
+  {{ super() }}
+  <link href="assets/css/index.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
 <div class="container">
