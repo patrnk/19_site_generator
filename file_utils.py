@@ -49,7 +49,8 @@ def add_info_about_paths(topics, articles_folder):
 
 
 def delete_contents_of_folder(path):
-    shutil.rmtree(path)
+    if os.path.exists(path):
+        shutil.rmtree(path)
     os.makedirs(path)
 
 
