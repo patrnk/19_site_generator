@@ -4,6 +4,7 @@
     <title>Энциклопедия</title>
   </head>
   <body>
+    <img src="test.jpg">
     {% for slug, topic in topics.items() %}
       {{ topic.title }}:
       {% for article in topic.articles %}

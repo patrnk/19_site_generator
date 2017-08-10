@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 
 
 def load_article_info_by_topic(path):
@@ -36,3 +37,8 @@ def generate_article_filename(article_source):
     source_filename = os.path.basename(article_source)
     article_slug = os.path.splitext(source_filename)[0]
     return '.'.join((article_slug, 'html'))
+
+
+def delete_contents_of_folder(path):
+    shutil.rmtree(path)
+    os.makedirs(path)

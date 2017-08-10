@@ -1,4 +1,6 @@
 import os
+import sys
+import argparse
 
 import markdown
 import jinja2
@@ -7,6 +9,7 @@ from livereload import Server
 import file_utils
 
 ROOT = 'live_website/'
+ARTICLES_FOLDER = 'encyclopedia/'
 TEMPLATES = 'templates/'
 SOURCES_ROOT = 'articles/'
 ARTICLE_INFO = 'config.json'
@@ -23,7 +26,7 @@ def render_index(environment, topics):
 
 def render_articles(environment, topics):
     for slug, topic in topics.items():
-        topic_path = os.path.join(ROOT, slug)
+        topic_path = os.path.join(ROOT, ARTICLES_FOLDER, slug)
         os.makedirs(topic_path, exist_ok=True)
         for article in topic['articles']:
             md_article = file_utils.read_text_from_file(
@@ -50,8 +53,18 @@ def make_site():
     render_articles(environment, topics)
 
 
+def parse_args(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--reset', '-r', action='store_true',
+                        help='Remove all generated files and generate them again')
+    return parser.parse_args(argv)
+
+
 if __name__ == '__main__':
-    make_site()
+    args = parse_args(sys.argv[1:])
+    if args.reset:
+        file_utils.delete_contents_of_folder(ROOT)
+        make_site()
     server = Server()
     server.watch(TEMPLATES, make_site)
     server.serve(root=ROOT)
