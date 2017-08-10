@@ -2,11 +2,14 @@
 {% block title %}
   Главная
 {% endblock %}
+{% block stylesheets %}
+  <link href="/assets/css/index.css" rel="stylesheet">
+{% endblock %}
 {% block content %}
 <div class="container">
   <div class="row">
     {% for slug, topic in topics.items() %}
-      <div class="col-sm-4">
+      <div class="col-sm-4 index-box">
         <h3>{{ topic.title }}</h3>
         <ul class="list-unstyled">
           {% for article in topic.articles %}
