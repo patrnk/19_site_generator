@@ -1,6 +1,6 @@
 import os
 import sys
-import argparse
+from argparse import ArgumentParser, RawTextHelpFormatter
 
 import markdown
 import jinja2
@@ -54,17 +54,22 @@ def make_site():
 
 
 def parse_args(argv):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--reset', '-r', action='store_true',
-                        help='Remove all generated files and generate them again')
+    parser = ArgumentParser(formatter_class=RawTextHelpFormatter)
+    parser.add_argument(
+        'action',
+        choices=('runserver', 'reset'),
+        help='runserver -- start livereload server\n'
+             'reset -- remove all generated files and generate them again'
+    )
     return parser.parse_args(argv)
 
 
 if __name__ == '__main__':
     args = parse_args(sys.argv[1:])
-    if args.reset:
+    if args.action == 'reset':
         file_utils.delete_contents_of_folder(ROOT)
         make_site()
-    server = Server()
-    server.watch(TEMPLATES, make_site)
-    server.serve(root=ROOT)
+    if args.action == 'runserver':
+        server = Server()
+        server.watch(TEMPLATES, make_site)
+        server.serve(root=ROOT)
