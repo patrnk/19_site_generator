@@ -2,6 +2,8 @@ import json
 import os
 import shutil
 
+from slugify import slugify
+
 
 def load_article_info_by_topic(path):
     with open(path) as json_file:
@@ -35,7 +37,8 @@ def dump_html_to_file(html, path):
 
 def generate_article_filename(article_source):
     source_filename = os.path.basename(article_source)
-    article_slug = os.path.splitext(source_filename)[0]
+    article_name = os.path.splitext(source_filename)[0]
+    article_slug = slugify(article_name)
     return '.'.join((article_slug, 'html'))
 
 
